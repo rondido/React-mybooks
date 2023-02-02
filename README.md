@@ -5,3 +5,5 @@
 - typescript
 - react-router-dom
 - react-error-boundary
+- redux-saga
+- AntDesign
