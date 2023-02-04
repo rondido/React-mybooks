@@ -1,5 +1,7 @@
-import { createActions, handleActions } from 'redux-actions';
+import { push } from 'connected-react-router';
+import { Action, createActions, handleActions } from 'redux-actions';
 import { call, put, takeEvery } from 'redux-saga/effects';
+import TokenService from '../../services/TokenService';
 import UserService from '../../services/UserService';
 import { LoginReqType } from '../../types';
 
@@ -54,8 +56,10 @@ function* loginSaga(action:Action<LoginReqType>){
         yield put(pending());
         const token:string = yield call(UserService.login, action.payload);
         // localStroage
+        TokenService.set(token);
         yield put(success(token));
         //push
+        yield put(push('/'));
     }catch(error){
         yield put(fail(new Error('Error')));
     }
